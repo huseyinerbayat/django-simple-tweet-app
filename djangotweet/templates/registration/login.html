@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        Hoşgeldin, {{user.username}}
+    {% else %}
+        {% if form.errors %}
+            Kullanıcı adı veya parola hatalı
+        {% endif %}
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+            {% endfor %}
+            <button class="btn btn-success">login</button>
+        </form>
+
+    {% endif %}
+</div>
+{% endblock %}
